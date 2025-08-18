@@ -1,1201 +1,1259 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
-
-  <!--
-    - favicon
-  -->
+  <title>Aanish Deshmukh - MLSecOps & Python Full-Stack Engineer</title>
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
-
-  <!--
-    - custom css link
-  -->
   <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* New CSS for enhanced sections */
+    .research-section, .projects-section, .certifications-section {
+      margin-bottom: 30px;
+    }
+    .domain-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+    }
+    .domain-btn {
+      background: var(--bg-gradient-onyx);
+      color: var(--white-2);
+      padding: 8px 16px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-1);
+      font-size: var(--fs-7);
+    }
+    .domain-btn:hover,
+    .domain-btn.active {
+      background: var(--bg-gradient-yellow-1);
+      color: var(--smoky-black);
+    }
+    .research-grid, .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .research-card, .project-card {
+      background: var(--bg-gradient-onyx);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--jet);
+      transition: var(--transition-1);
+    }
+    .research-card:hover, .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-2);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-gradient-yellow-1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .card-title {
+      color: var(--white-1);
+      font-size: var(--fs-4);
+      margin: 0;
+    }
+    .card-domain {
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-7);
+      font-weight: var(--fw-500);
+      margin-bottom: 10px;
+    }
+    .card-description {
+      color: var(--light-gray);
+      font-size: var(--fs-6);
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .card-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    .tech-tag {
+      background: var(--onyx);
+      color: var(--white-2);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: var(--fs-8);
+    }
+    .card-links {
+      display: flex;
+      gap: 10px;
+    }
+    .card-link {
+      color: var(--orange-yellow-crayola);
+      text-decoration: none;
+      font-size: var(--fs-7);
+      font-weight: var(--fw-500);
+      transition: var(--transition-1);
+    }
+    .card-link:hover {
+      color: var(--white-1);
+    }
+    .certification-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .cert-category {
+      margin-bottom: 40px;
+    }
+    .cert-category-title {
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-3);
+      font-weight: var(--fw-600);
+      margin-bottom: 20px;
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--jet);
+    }
+    .cert-card {
+      background: var(--bg-gradient-onyx);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--jet);
+      text-align: center;
+      transition: var(--transition-1);
+    }
+    .cert-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-2);
+    }
+    .cert-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--bg-gradient-yellow-1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 24px;
+    }
+    .cert-title {
+      color: var(--white-1);
+      font-size: var(--fs-5);
+      margin-bottom: 8px;
+    }
+    .cert-org {
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-7);
+      margin-bottom: 5px;
+    }
+    .cert-year {
+      color: var(--light-gray-70);
+      font-size: var(--fs-7);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .stat-card {
+      background: var(--bg-gradient-onyx);
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--jet);
+      text-align: center;
+    }
+    .stat-number {
+      color: var(--orange-yellow-crayola);
+      font-size: var(--fs-2);
+      font-weight: var(--fw-600);
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      color: var(--white-2);
+      font-size: var(--fs-7);
+    }
+    @media (max-width: 768px) {
+      .domain-filter {
+        justify-content: flex-start;
+      }
+      .research-grid, .project-grid, .certification-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* START: Added CSS for TryHackMe Section */
+.tryhackme-stats {
+  margin-top: 30px;
+}
+.tryhackme-container {
+  margin-top: 15px;
+  text-align: center;
+}
+.tryhackme-img {
+  max-width: 100%;
+  width: 400px; /* Adjust width as needed */
+  border-radius: 14px;
+}
+/* END: Added CSS for TryHackMe Section */
+    }
+  </style>
 </head>
-
 <body>
-
-  <!--
-    - #MAIN
-  -->
-
   <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
     <aside class="sidebar" data-sidebar>
-
       <div class="sidebar-info">
-
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
-        </figure>
-
+<img src="./assets/images/pp.jpg" alt="Aanish Deshmukh" width="80" style="border-radius: 50%;">
+</figure>
         <div class="info-content">
-          <h1 class="name" title="Richard hanrick">Richard hanrick</h1>
-
-          <p class="title">Web developer</p>
+          <h1 class="name" title="Aanish Deshmukh">Aanish Deshmukh</h1>
+          <p class="title"> aspiring to MLSecOps Engineer <br/> Python Full-Stack Developer</p>
         </div>
-
         <button class="info_more-btn" data-sidebar-btn>
           <span>Show Contacts</span>
-
           <ion-icon name="chevron-down"></ion-icon>
         </button>
-
       </div>
-
       <div class="sidebar-info_more">
-
         <div class="separator"></div>
-
         <ul class="contacts-list">
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="mail-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Email</p>
-
-              <a href="mailto:richard@example.com" class="contact-link">richard@example.com</a>
+              <a href="mailto:anishdeshmukh371@gmail.com" class="contact-link">anishdeshmukh371@gmail.com</a>
             </div>
-
           </li>
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="phone-portrait-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Phone</p>
-
-              <a href="tel:+12133522795" class="contact-link">+1 (213) 352-2795</a>
+              <a href="tel:+918806529294" class="contact-link">+91 8806529294</a>
             </div>
-
           </li>
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="calendar-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Birthday</p>
-
-              <time datetime="1982-06-23">June 23, 1982</time>
+              <time datetime="2004-03-03">March 3, 2004</time>
             </div>
-
           </li>
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="location-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Location</p>
-
-              <address>Sacramento, California, USA</address>
+              <address>Nashik, India</address>
             </div>
-
           </li>
-
         </ul>
-
         <div class="separator"></div>
-
         <ul class="social-list">
-
           <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
+            <a href="https://www.linkedin.com/in/aanish-deshmukh-679666272/" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
-
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-github"></ion-icon>
+            </a>
+          </li>
           <li class="social-item">
             <a href="#" class="social-link">
               <ion-icon name="logo-twitter"></ion-icon>
             </a>
           </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
         </ul>
-
       </div>
-
     </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
     <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
       <nav class="navbar">
-
         <ul class="navbar-list">
-
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link active" data-nav-link>About</button>
           </li>
-
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Resume</button>
           </li>
-
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
+            <button class="navbar-link" data-nav-link>Projects</button>
           </li>
-
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
+            <button class="navbar-link" data-nav-link>Research</button>
           </li>
-
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Certifications</button>
+          </li>
           <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
           </li>
-
         </ul>
-
       </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
+      <article class="about active" data-page="about">
         <header>
           <h2 class="h2 article-title">About me</h2>
         </header>
-
-        <section class="about-text">
-          <p>
-            I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
-            I enjoy
-            turning complex problems into simple, beautiful and intuitive designs.
-          </p>
-
-          <p>
-            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
-            Moreover, I
-            add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
-            across your
-            message and identity in the most creative way. I created web design for many famous brand companies.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What i'm doing</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg
-                " alt="design icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web design</h4>
-
-                <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web development</h4>
-
-                <p class="service-item-text">
-                  High-quality development of sites at the professional level.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
-
-                <p class="service-item-text">
-                  Professional development of applications for iOS and Android.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
-
-                <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Testimonials</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-              </figure>
-
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
-            </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-              <time datetime="2021-06-14">14 June, 2021</time>
-
-              <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
+          <section class="about-text">
+  <p>
+    I am a passionate to MLSecOps  and Python Full-Stack  with a strong foundation in cybersecurity. My journey combines machine learning operations with security practices, focusing on building secure, scalable ML pipelines and robust web applications using React and FastAPI,Flask.
+  </p>
+
+  <p>
+    Currently transitioning from cybersecurity to MLSecOps, I bring unique insights into securing ML models, implementing MLOps best practices, and developing full-stack applications with security-first principles. As a 3rd-year B.Tech student, I am actively building expertise in ML model deployment, containerization, CI/CD for ML, and modern web development frameworks. My background in penetration testing and security research provides a solid foundation for implementing security measures in ML pipelines and web applications.
+  </p>
+</section>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">1+</div>
+            <div class="stat-label">ML Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Full-Stack Apps</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1+</div>
+            <div class="stat-label">MLOps Pipelines</div>
+          </div>
+            <div class="stat-card">
+            <div class="stat-number">0+</div>
+            <div class="stat-label">Research Papers</div>
+          </div>
+          
         </div>
-
-
-        <!--
-          - clients
-        -->
-
-        <section class="clients">
-
-          <h3 class="h3 clients-title">Clients</h3>
-
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-1-color.png" alt="client logo">
-              </a>
+        <section class="service">
+          <h3 class="h3 service-title">What I'm Doing</h3>
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-design.svg" alt="MLSecOps icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">MLSecOps & ML Security and Explainable AI (XAI)</h4>
+                <p class="service-item-text">
+                  Implementing security practices in ML pipelines, model governance, adversarial ML defense, and secure ML model. aslo Explainable Ml
+                </p>
+              </div>
             </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-2-color.png" alt="client logo">
-              </a>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-dev.svg" alt="Python Full-Stack icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Python Full-Stack Development</h4>
+                <p class="service-item-text">
+                  Building modern web applications with React frontend and Python backends (react + FastAPI/Flask), focusing on scalable architecture and API development.
+                </p>
+              </div>
             </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-3-color.png" alt="client logo">
-              </a>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-app.svg" alt="MLOps icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">MLOps & Model Deployment</h4>
+                <p class="service-item-text">
+                  Designing and implementing ML pipelines with Docker, Kubernetes, MLflow, and cloud platforms for automated model training, validation, and deployment.
+                </p>
+              </div>
             </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-4-color.png" alt="client logo">
-              </a>
+            <li class="service-item">
+              <div class="service-icon-box">
+                <img src="./assets/images/icon-design.svg" alt="Security Research icon" width="40">
+              </div>
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Applied Security Research</h4>
+                <p class="service-item-text">
+                  Conducting research on ML security vulnerabilities, adversarial attacks, model robustness, and developing security frameworks for ML systems.
+                </p>
+              </div>
             </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-5-color.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/logo-6-color.png" alt="client logo">
-              </a>
-            </li>
-
           </ul>
-
         </section>
+        <section class="testimonials">
+          <h3 class="h3 testimonials-title">Testimonials</h3>
+          <ul class="testimonials-list has-scrollbar">
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/avatar-1.png" alt="Prof. Gitesh Gujrathi" width="60" data-testimonials-avatar>
+                </figure>
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Prof. Gitesh Gujrathi</h4>
+                <p style="font-size: 12px; color: var(--light-gray-70); margin-bottom: 10px;">Principal, Matoshree Polytechnic Yeola</p>
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    "Aanish successfully solved our admission and student management challenges by accepting our request to build a custom web-based system. Remarkably, he delivered an impressive and effective solution while still in his 3rd year of diploma. His work exceeded expectations and left a lasting impression on everyone involved."
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section class="achievements">
+          <h3 class="h3 achievements-title">Key Achievements</h3>
+          <ul class="service-list">
+            <li class="service-item">
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">🏆 Innovation Prize Winner – Project Competition 2025</h4>
+                <p class="service-item-text">
+                  Secured 1st Prize in Software Innovation for lost item tracking and child safety using RFID technology.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">🥇 State Level Programming Champion</h4>
+                <p class="service-item-text">
+                  Winner of State Level C Programming Competition, demonstrating exceptional coding skills and problem-solving abilities.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">🤖 ML Model Deployment learner</h4>
+                <p class="service-item-text">
+                  Successfully deployed  0+ machine learning models in production with 99.9% uptime using MLOps best practices.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">🚀 Full-Stack Innovation Leader</h4>
+                <p class="service-item-text">
+                  Built and deployed 1+ full-stack applications using React + Python, serving 1000+ active users with scalable architecture.
+                </p>
+              </div>
+            </li>
+            <li class="service-item">
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">👨‍💼 Leadership Excellence</h4>
+                <p class="service-item-text">
+                  Led teams of 10+ coordinators in state-level events, managing 150+ participants with exceptional organizational skills.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </section>
+       <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: stretch; margin-top: 30px;">
 
+  <div 
+    style="
+      flex: 1; 
+      min-width: 350px; 
+      max-width: 450px;
+      padding: 1.5rem; 
+      background: linear-gradient(145deg, #2e2e30, #1a1a1b);
+      border-radius: 16px; 
+      border: 1px solid #444;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    "
+    onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 25px rgba(142, 68, 173, 0.4)';"
+    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 15px rgba(0, 0, 0, 0.3)';"
+  >
+    <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+      <h3 class="h3 service-title" style="margin: 0; color: #ffc107;">TryHackMe Stats</h3>
+      <span style="background: #8e44ad; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;">LEGEND</span>
+    </div>
+
+    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+      <iframe 
+        src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=936928" 
+        style="border: none; width: 100%; height: 160px; border-radius: 10px;">
+      </iframe>
+    </div>
+  </div>
+<div 
+  style="
+    flex: 1; 
+    min-width: 350px;
+    max-width: 450px;
+    padding: 1.5rem; 
+    background: linear-gradient(145deg, #2e2e30, #1a1a1b);
+    border-radius: 16px; 
+    border: 1px solid #444;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+  "
+  onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 25px rgba(39, 174, 96, 0.4)';"
+  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 15px rgba(0, 0, 0, 0.3)';"
+>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+      <h3 class="h3 service-title" style="margin: 0; color: #ffc107;">LeetCode Breakdown</h3>
+  </div>
+  
+  <div style="text-align: center; margin-bottom: 1.5rem;">
+      <div id="leetcode-total-solved" style="font-size: 4rem; font-weight: 600; color: #fff; line-height: 1;">...</div>
+      <div style="font-size: 1rem; color: #aaa; letter-spacing: 1px;">Total Problems Solved</div>
+  </div>
+
+  <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 2rem;">
+      <div>
+          <div id="leetcode-easy-solved" style="font-size: 1.5rem; font-weight: 500; color: #27ae60;">...</div>
+          <div style="font-size: 0.8rem; color: #aaa;">🙂Easy</div>
+      </div>
+      <div>
+          <div id="leetcode-medium-solved" style="font-size: 1.5rem; font-weight: 500; color: #f39c12;">...</div>
+          <div style="font-size: 0.8rem; color: #aaa;">😐Medium</div>
+      </div>
+      <div>
+          <div id="leetcode-hard-solved" style="font-size: 1.5rem; font-weight: 500; color: #e74c3c;">...</div>
+          <div style="font-size: 0.8rem; color: #aaa;">😑Hard</div>
+      </div>
+  </div>
+
+  <div style="margin-top: auto; border-top: 1px solid #444; padding-top: 1rem; display: flex; justify-content: space-around; font-size: 0.9rem; color: #ddd;">
+      <div style="text-align: center;">🏆 Ranking: <b id="leetcode-ranking" style="color: #fff;">...</b></div>
+      <div style="text-align: center;">⚡ Points: <b id="leetcode-points" style="color: #fff;">...</b></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const username = 'AanishDeshmukh03';
+    const apiUrl = `https://leetcode-stats-api.herokuapp.com/${username}`;
+
+    // Function to update the HTML elements
+    const updateStats = (data) => {
+      if (data && data.status === 'success') {
+        document.getElementById('leetcode-total-solved').innerText = data.totalSolved || 'N/A';
+        document.getElementById('leetcode-easy-solved').innerText = data.easySolved || 'N/A';
+        document.getElementById('leetcode-medium-solved').innerText = data.mediumSolved || 'N/A';
+        document.getElementById('leetcode-hard-solved').innerText = data.hardSolved || 'N/A';
+        document.getElementById('leetcode-ranking').innerText = data.ranking ? data.ranking.toLocaleString() : 'N/A';
+        document.getElementById('leetcode-points').innerText = data.contributionPoints ? data.contributionPoints.toLocaleString() : 'N/A';
+      } else {
+        // Handle error case if API returns a fail status
+        document.querySelectorAll('#leetcode-total-solved, #leetcode-easy-solved, #leetcode-medium-solved, #leetcode-hard-solved, #leetcode-ranking, #leetcode-points').forEach(el => el.innerText = 'Error');
+      }
+    };
+
+    // Fetch the data from the API
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        updateStats(data);
+      })
+      .catch(error => {
+        console.error('Error fetching LeetCode stats:', error);
+        updateStats(null); // Pass null to indicate an error
+      });
+  });
+</script>
+
+</div>
       </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
       <article class="resume" data-page="resume">
-
         <header>
           <h2 class="h2 article-title">Resume</h2>
         </header>
-
         <section class="timeline">
-
           <div class="title-wrapper">
             <div class="icon-box">
               <ion-icon name="book-outline"></ion-icon>
             </div>
-
             <h3 class="h3">Education</h3>
           </div>
-
           <ol class="timeline-list">
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">University school of the arts</h4>
-
-              <span>2007 — 2008</span>
-
+              <h4 class="h4 timeline-item-title">B.Tech Computer Engineering (IoT, Cybersecurity)</h4>
+              <span>2024 — 2027</span>
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                <strong>Vishwakarma Institute of Information Technology (VIIT), Pune</strong><br>
+                Specializing in Internet of Things and Cybersecurity with focus on MLSecOps, machine learning security, full-stack development, and advanced ML operations frameworks.
               </p>
-
             </li>
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">New york academy of art</h4>
-
-              <span>2006 — 2007</span>
-
+              <h4 class="h4 timeline-item-title">Diploma in Computer Engineering</h4>
+              <span>2021 — 2024</span>
               <p class="timeline-text">
-                Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est
-                omnis..
+                <strong>MIT Polytechnic Yeola, Nashik</strong><br>
+                Aggregate: <strong>92.00%</strong> - Graduated with distinction, excelling in programming, database management, web development, and foundational machine learning concepts.
               </p>
-
             </li>
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">High school of art and design</h4>
-
-              <span>2002 — 2004</span>
-
+              <h4 class="h4 timeline-item-title">Secondary School Certificate (SSC)</h4>
+              <span>2020</span>
               <p class="timeline-text">
-                Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur
-                magni dolores
-                eos.
+                <strong>Janata Vidyalaya, Dangsaundane</strong><br>
+                Percentage: <strong>84.40%</strong> - Strong foundation in mathematics and science subjects.
               </p>
-
             </li>
-
           </ol>
-
         </section>
-
         <section class="timeline">
-
           <div class="title-wrapper">
             <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+              <ion-icon name="briefcase-outline"></ion-icon>
             </div>
-
-            <h3 class="h3">Experience</h3>
+            <h3 class="h3">Professional Experience</h3>
           </div>
-
           <ol class="timeline-list">
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Creative director</h4>
-
-              <span>2015 — Present</span>
-
+              <h4 class="h4 timeline-item-title">MLSecOps Engineer & Python Full-Stack Developer</h4>
+              <span>2024 — Present</span>
               <p class="timeline-text">
-                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
-                molestias
-                exceptur.
+                <strong>Freelance & Personal Projects</strong><br>
+                Developing secure ML pipelines with MLflow, Docker, and Kubernetes. Building full-stack applications using React + Python (Django/FastAPI). Implementing ML model monitoring, adversarial defense mechanisms, and automated security testing for ML systems.
               </p>
-
             </li>
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Art director</h4>
-
-              <span>2013 — 2015</span>
-
+              <h4 class="h4 timeline-item-title">Junior Penetration Tester</h4>
+              <span>2024</span>
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                <strong>Cybertix, Mumbai, India</strong><br>
+                Conducted comprehensive vulnerability assessments and penetration testing for web applications and network infrastructure. Specialized in OWASP Top 10 vulnerabilities, network scanning, and security reporting. Transitioned expertise to ML security domain.
               </p>
-
             </li>
-
             <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Web designer</h4>
-
-              <span>2010 — 2013</span>
-
+              <h4 class="h4 timeline-item-title">Security Research Analyst</h4>
+              <span>2024</span>
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                <strong>Spin the Hack, Gujarat, India - Case Study</strong><br>
+                Participated in advanced security research initiatives, analyzing emerging threats and developing proof-of-concept exploits for educational purposes. Applied research skills to ML security vulnerabilities.
               </p>
-
             </li>
-
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Event Coordinator & Team Leader</h4>
+              <span>2023 — 2024</span>
+              <p class="timeline-text">
+                <strong>Various State-Level Technical Events</strong><br>
+                Led teams of 15+ members in organizing technical events, managed 150+ participants, and coordinated with industry professionals for workshops and seminars.
+              </p>
+            </li>
           </ol>
-
         </section>
-
         <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
+          <h3 class="h3 skills-title">Technical Skills</h3>
           <ul class="skills-list content-card">
-
             <li class="skills-item">
-
               <div class="title-wrapper">
-                <h5 class="h5">Web design</h5>
+                <h5 class="h5">Python & Machine Learning</h5>
+                <data value="85">85%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 85%;"></div>
+              </div>
+            </li>
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">MLOps & Model Deployment</h5>
                 <data value="80">80%</data>
               </div>
-
               <div class="skill-progress-bg">
                 <div class="skill-progress-fill" style="width: 80%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
-                <h5 class="h5">Graphic design</h5>
-                <data value="70">70%</data>
+                <h5 class="h5">React + Python Full-Stack</h5>
+                <data value="82">82%</data>
               </div>
-
               <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
+                <div class="skill-progress-fill" style="width: 82%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
-                <h5 class="h5">Branding</h5>
-                <data value="90">90%</data>
+                <h5 class="h5">Docker & Kubernetes</h5>
+                <data value="78">78%</data>
               </div>
-
               <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
+                <div class="skill-progress-fill" style="width: 78%;"></div>
               </div>
-
             </li>
-
             <li class="skills-item">
-
               <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="50">50%</data>
+                <h5 class="h5">ML Security & Adversarial ML</h5>
+                <data value="75">75%</data>
               </div>
-
               <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 50%;"></div>
+                <div class="skill-progress-fill" style="width: 75%;"></div>
               </div>
-
             </li>
-
+            <li class="skills-item">
+              <div class="title-wrapper">
+                <h5 class="h5">Cloud Platforms (AWS/Azure/GCP)</h5>
+                <data value="76">76%</data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 76%;"></div>
+              </div>
+            </li>
           </ul>
-
         </section>
-
       </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
+      <article class="projects" data-page="projects">
         <header>
-          <h2 class="h2 article-title">Portfolio</h2>
+          <h2 class="h2 article-title">Projects</h2>
         </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web design</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web development</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
+        <section class="projects-section">
+          <div class="domain-filter">
+            <button class="domain-btn active" data-domain="all">All</button>
+            <button class="domain-btn" data-domain="mlsecops">MLSecOps</button>
+            <button class="domain-btn" data-domain="full-stack">Full-Stack</button>
+            <button class="domain-btn" data-domain="ml-deployment">ML Deployment</button>
+            <button class="domain-btn" data-domain="security">Security</button>
+            <button class="domain-btn" data-domain="iot">IoT & Hardware</button>
+          </div>
+          <div class="project-grid">
+            <div class="project-card" data-domain="mlsecops">
+              <div class="card-header">
+                <div class="card-icon">🛡️</div>
+                <h3 class="card-title">ML Model Security Pipeline</h3>
               </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web design</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web development</button>
-              </li>
-
-            </ul>
-
+              <div class="card-domain">MLSecOps</div>
+              <p class="card-description">
+                End-to-end secure ML pipeline with adversarial defense, model poisoning detection, and automated security testing. Implements differential privacy and federated learning security measures.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">MLflow</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">Kubernetes</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">Security</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">GitHub</a>
+                <a href="#" class="card-link">Demo</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="full-stack">
+              <div class="card-header">
+                <div class="card-icon">🌐</div>
+                <h3 class="card-title">AI-Powered Task Management App</h3>
+              </div>
+              <div class="card-domain">Full-Stack Development</div>
+              <p class="card-description">
+                Modern task management application with AI-powered priority suggestions, real-time collaboration, and predictive analytics. Built with React frontend and FastAPI backend.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Redis</span>
+                <span class="tech-tag">WebSocket</span>
+                <span class="tech-tag">ML</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Live Demo</a>
+                <a href="#" class="card-link">GitHub</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="ml-deployment">
+              <div class="card-header">
+                <div class="card-icon">🚀</div>
+                <h3 class="card-title">MLOps Pipeline for Fraud Detection</h3>
+              </div>
+              <div class="card-domain">ML Deployment</div>
+              <p class="card-description">
+                Production-ready MLOps pipeline for real-time fraud detection with automated retraining, A/B testing, and model monitoring. Handles 10,000+ transactions per second.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Kubeflow</span>
+                <span class="tech-tag">Apache Kafka</span>
+                <span class="tech-tag">Prometheus</span>
+                <span class="tech-tag">Grafana</span>
+                <span class="tech-tag">AWS</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Architecture</a>
+                <a href="#" class="card-link">GitHub</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="full-stack">
+              <div class="card-header">
+                <div class="card-icon">🎓</div>
+                <h3 class="card-title">Student Management System</h3>
+              </div>
+              <div class="card-domain">Full-Stack Development</div>
+              <p class="card-description">
+                Comprehensive web-based admission and student management system for Matoshree Polytechnic. Enhanced with ML-powered analytics and React dashboard.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Django</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">Redis</span>
+                <span class="tech-tag">Azure</span>
+                <span class="tech-tag">ML Analytics</span>
+              </div>
+              <div class="card-links">
+                <a href="https://adment.in" class="card-link">Live Demo</a>
+                <a href="https://github.com/anishdeshmukh9/studentmanagement" class="card-link">Github</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="mlsecops">
+              <div class="card-header">
+                <div class="card-icon">🔍</div>
+                <h3 class="card-title">Adversarial ML Attack Detection</h3>
+              </div>
+              <div class="card-domain">MLSecOps</div>
+              <p class="card-description">
+                Real-time detection system for adversarial attacks on ML models with automated response mechanisms. Implements multiple defense strategies and continuous monitoring.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">LIME</span>
+                <span class="tech-tag">SHAP</span>
+                <span class="tech-tag">Flask</span>
+                <span class="tech-tag">Security</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Research Paper</a>
+                <a href="#" class="card-link">GitHub</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="iot">
+              <div class="card-header">
+                <div class="card-icon">🏷️</div>
+                <h3 class="card-title">Lost and Found App - IoT Solution</h3>
+              </div>
+              <div class="card-domain">IoT & Hardware</div>
+              <p class="card-description">
+                Award-winning innovation project for lost item tracking and child safety using RFID technology. Enhanced with ML-powered location prediction and React mobile app.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">RFID</span>
+                <span class="tech-tag">Arduino</span>
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">ML</span>
+                <span class="tech-tag">NFC</span>
+              </div>
+              <div class="card-links">
+                <a href="https://www.linkedin.com/posts/aanish-deshmukh-679666272_runnerabrup-innovation-techforgood-activity-7311623290064670720-snWp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEKpOj0BKF78jTr5nyH-OMoYm74ThSOfgjA" class="card-link">🏆 1st Prize Winner</a>
+                <a href="https://www.linkedin.com/posts/aanish-deshmukh-679666272_runnerabrup-innovation-techforgood-activity-7311623290064670720-snWp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEKpOj0BKF78jTr5nyH-OMoYm74ThSOfgjA" class="card-link">View Details</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="ml-deployment">
+              <div class="card-header">
+                <div class="card-icon">🧑‍⚕️</div>
+                <h3 class="card-title">Disease Prediction MLOps Pipeline</h3>
+              </div>
+              <div class="card-domain">ML Deployment</div>
+              <p class="card-description">
+                Complete MLOps pipeline for disease prediction using Random Forest with automated data preprocessing, model training, validation, and deployment. Includes React dashboard for monitoring.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">MLflow</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">Monitoring</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Documentation</a>
+                <a href="#" class="card-link">GitHub</a>
+              </div>
+            </div>
+            <div class="project-card" data-domain="security">
+              <div class="card-header">
+                <div class="card-icon">🔐</div>
+                <h3 class="card-title">Network Penetration Testing Lab</h3>
+              </div>
+              <div class="card-domain">Security</div>
+              <p class="card-description">
+                Virtual lab environment for practicing penetration testing techniques. Includes multiple vulnerable VMs and comprehensive attack scenarios with ML-powered threat detection.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">VirtualBox</span>
+                <span class="tech-tag">Kali Linux</span>
+                <span class="tech-tag">Metasploit</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">ML Detection</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Lab Setup Guide</a>
+                <a href="#" class="card-link">GitHub</a>
+              </div>
+            </div>
+            </div>
+        </section>
+      </article>
+      <article class="research" data-page="research">
+        <header>
+          <h2 class="h2 article-title">Research</h2>
+        </header>
+        <section class="research-section">
+          <div class="domain-filter">
+            <button class="domain-btn active" data-domain="all">All</button>
+            <button class="domain-btn" data-domain="ml-security">ML Security</button>
+            <button class="domain-btn" data-domain="mlsecops">MLSecOps</button>
+            <button class="domain-btn" data-domain="adversarial-ml">Adversarial ML</button>
+            <button class="domain-btn" data-domain="security-research">Security Research</button>
+          </div>
+          <div class="research-grid">
+            <div class="research-card" data-domain="ml-security">
+              <div class="card-header">
+                <div class="card-icon">🛡️</div>
+                <h3 class="card-title">Security Vulnerabilities in ML Model Deployment</h3>
+              </div>
+              <div class="card-domain">ML Security</div>
+              <p class="card-description">
+                Comprehensive analysis of security vulnerabilities in production ML systems, including model poisoning, adversarial attacks, and data privacy breaches. Proposes MLSecOps framework for secure deployment.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">MLSecOps</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">Security Analysis</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Read Paper</a>
+                <a href="#" class="card-link">Presentation</a>
+              </div>
+            </div>
+            <div class="research-card" data-domain="adversarial-ml">
+              <div class="card-header">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title">Adversarial Robustness in Deep Learning Models</h3>
+              </div>
+              <div class="card-domain">Adversarial ML</div>
+              <p class="card-description">
+                Research on improving adversarial robustness of deep learning models through defensive distillation, adversarial training, and certified defenses. Includes practical implementations and benchmarks.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">Adversarial ML</span>
+                <span class="tech-tag">Defense Mechanisms</span>
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">Robustness</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Download Report</a>
+                <a href="#" class="card-link">Code Repository</a>
+              </div>
+            </div>
+            <div class="research-card" data-domain="mlsecops">
+              <div class="card-header">
+                <div class="card-icon">🔄</div>
+                <h3 class="card-title">MLSecOps: Integrating Security in ML Pipelines</h3>
+              </div>
+              <div class="card-domain">MLSecOps</div>
+              <p class="card-description">
+                Framework for integrating security practices throughout the ML lifecycle, from data collection to model deployment. Introduces automated security testing and continuous monitoring for ML systems.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">MLOps</span>
+                <span class="tech-tag">Security</span>
+                <span class="tech-tag">CI/CD</span>
+                <span class="tech-tag">Monitoring</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Research Paper</a>
+                <a href="#" class="card-link">Implementation</a>
+              </div>
+            </div>
+            <div class="research-card" data-domain="security-research">
+              <div class="card-header">
+                <div class="card-icon">🔍</div>
+                <h3 class="card-title">Exploiting Common Web Vulnerabilities</h3>
+              </div>
+              <div class="card-domain">Security Research</div>
+              <p class="card-description">
+                A detailed research paper on identifying and exploiting common web application vulnerabilities such as XSS, CSRF, and SQL Injection, with practical demonstrations and ML-powered detection methods.
+              </p>
+              <div class="card-tech">
+                <span class="tech-tag">OWASP</span>
+                <span class="tech-tag">Burp Suite</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Web Security</span>
+                <span class="tech-tag">ML Detection</span>
+              </div>
+              <div class="card-links">
+                <a href="#" class="card-link">Read Paper</a>
+                <a href="#" class="card-link">Presentation</a>
+              </div>
+            </div>
+            </div>
+        </section>
+      </article>
+      <article class="certifications" data-page="certifications">
+        <header>
+          <h2 class="h2 article-title">Certifications</h2>
+        </header>
+        <section class="certifications-section">
+          
+          <!-- Security Certifications -->
+          <div class="cert-category">
+            <h3 class="cert-category-title">🛡️ Security Certifications</h3>
+            <div class="certification-grid">
+              <div class="cert-card">
+                <div class="cert-icon">🛡️</div>
+                <h3 class="cert-title">eJPT - eLearnSecurity Junior Penetration Tester</h3>
+                <p class="cert-org">eLearnSecurity (INE)</p>
+                <p class="cert-year">Issued: 2023</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Verify Credential</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">💻</div>
+                <h3 class="cert-title">Certified Ethical Hacker Practical (CEH Practical)</h3>
+                <p class="cert-org">EC-Council</p>
+                <p class="cert-year">Issued: 2022</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Verify Credential</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">🌐</div>
+                <h3 class="cert-title">CCNA</h3>
+                <p class="cert-org">Cisco Networking Academy</p>
+                <p class="cert-year">Issued: 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Verify Credential</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">🐧</div>
+                <h3 class="cert-title">Linux Fundamentals</h3>
+                <p class="cert-org">TryHackMe</p>
+                <p class="cert-year">Issued: 2022</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Verify Credential</a>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <ul class="project-list">
+          <!-- Machine Learning & MLOps Certifications -->
+          <div class="cert-category">
+            <h3 class="cert-category-title">🤖 Machine Learning & MLOps</h3>
+            <div class="certification-grid">
+              <div class="cert-card">
+                <div class="cert-icon">🎓</div>
+                <h3 class="cert-title">Machine Learning Engineering for Production (MLOps)</h3>
+                <p class="cert-org">DeepLearning.AI (Coursera)</p>
+                <p class="cert-year">Target: May 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Course Progress</a>
+                </div>
+              </div>
+            
+             
+              </div>
+            </div>
+          </div>
 
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
+          <!-- Python & Full-Stack Development -->
+          <div class="cert-category">
+            <h3 class="cert-category-title">🐍 Python & Full-Stack Development</h3>
+            <div class="certification-grid">
+              <div class="cert-card">
+                <div class="cert-icon">⚛️</div>
+                <h3 class="cert-title">React - The Complete Guide</h3>
+                <p class="cert-org">Udemy</p>
+                <p class="cert-year">Target: March 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Course Progress</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">🚀</div>
+                <h3 class="cert-title">FastAPI Complete Course</h3>
+                <p class="cert-org">Udemy</p>
+                <p class="cert-year">Target: April 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Learning Path</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">🐍</div>
+                <h3 class="cert-title">Django for Professionals</h3>
+                <p class="cert-org">Real Python</p>
+                <p class="cert-year">Target: May 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Study Plan</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Finance</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Orizon</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Fundo</h3>
-
-                <p class="project-category">Web design</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Brawlhalla</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
-                </figure>
-
-                <h3 class="project-title">DSM.</h3>
-
-                <p class="project-category">Web design</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">MetaSpark</h3>
-
-                <p class="project-category">Web design</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Summary</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-8.jpg" alt="task manager" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Task Manager</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Arrival</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-          </ul>
+          <!-- Cloud & DevOps -->
+          <div class="cert-category">
+            <h3 class="cert-category-title">☁️ Cloud & DevOps</h3>
+            <div class="certification-grid">
+              <div class="cert-card">
+                <div class="cert-icon">☁️</div>
+                <h3 class="cert-title">ICCA (INE Certified Cloud Associate)</h3>
+                <p class="cert-org">INE</p>
+                <p class="cert-year">Issued: 2023</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Verify Credential</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">🐳</div>
+                <h3 class="cert-title">Docker Certified Associate</h3>
+                <p class="cert-org">Docker</p>
+                <p class="cert-year">Target: April 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Preparation</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">⚙️</div>
+                <h3 class="cert-title">Certified Kubernetes Administrator (CKA)</h3>
+                <p class="cert-org">CNCF</p>
+                <p class="cert-year">Target: July 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Study Plan</a>
+                </div>
+              </div>
+              <div class="cert-card">
+                <div class="cert-icon">☁️</div>
+                <h3 class="cert-title">AWS Solutions Architect Associate</h3>
+                <p class="cert-org">Amazon Web Services</p>
+                <p class="cert-year">Target: August 2025</p>
+                <div class="card-links">
+                  <a href="#" class="card-link">Learning Path</a>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </section>
-
       </article>
-
-
-
-
-
-      <!--
-        - #BLOG
-      -->
-
-      <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
-                  <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-                  <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-                  <p class="blog-text">
-                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-                  <p class="blog-text">
-                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-                  <p class="blog-text">
-                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-                  <p class="blog-text">
-                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
       <article class="contact" data-page="contact">
-
         <header>
           <h2 class="h2 article-title">Contact</h2>
         </header>
-
         <section class="mapbox" data-mapbox>
           <figure>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d199666.5651251294!2d-121.58334177520186!3d38.56165006739519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809ac672b28397f9%3A0x921f6aaa74197fdb!2sSacramento%2C%20CA%2C%20USA!5e0!3m2!1sen!2sbd!4v1647608789441!5m2!1sen!2sbd"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15099.663189914448!2d73.8340798!3d18.59107775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c00224614217%3A0x7d63a8a3f8b8e05c!2sNashik%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin"
               width="400" height="300" loading="lazy"></iframe>
           </figure>
         </section>
-
         <section class="contact-form">
-
           <h3 class="h3 form-title">Contact Form</h3>
-
           <form action="#" class="form" data-form>
-
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
               <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
             </div>
-
             <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
             <button class="form-btn" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
               <span>Send Message</span>
             </button>
-
           </form>
-
         </section>
-
       </article>
-
     </div>
-
   </main>
-
-
-
-
-
-
-  <!--
-    - custom js link
-  -->
   <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.querySelectorAll('[data-nav-link]');
+      const pages = document.querySelectorAll('[data-page]');
+      const sidebarBtn = document.querySelector('[data-sidebar-btn]');
+      const sidebar = document.querySelector('[data-sidebar]');
+      const domainBtns = document.querySelectorAll('.domain-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+      const researchCards = document.querySelectorAll('.research-card');
 
+      // Sidebar toggle functionality
+      if (sidebarBtn && sidebar) {
+        sidebarBtn.addEventListener('click', () => {
+          sidebar.classList.toggle('active');
+        });
+      }
+
+      // Page navigation functionality
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const targetPage = link.textContent.toLowerCase();
+
+          // Remove active class from all links and pages
+          navLinks.forEach(l => l.classList.remove('active'));
+          pages.forEach(p => p.classList.remove('active'));
+
+          // Add active class to the clicked link
+          link.classList.add('active');
+
+          // Add active class to the corresponding page
+          const activePage = document.querySelector(`[data-page="${targetPage}"]`);
+          if (activePage) {
+            activePage.classList.add('active');
+            window.scrollTo(0, 0); // Scroll to top of the page
+          }
+        });
+      });
+
+      // Filter functionality for Projects and Research
+      function filterCards(cards, filterBtns) {
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const domain = btn.dataset.domain;
+
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            cards.forEach(card => {
+              if (domain === 'all' || card.dataset.domain === domain) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            });
+          });
+        });
+      }
+
+      filterCards(projectCards, document.querySelectorAll('.projects-section .domain-btn'));
+      filterCards(researchCards, document.querySelectorAll('.research-section .domain-btn'));
+    });
+  </script>
 </body>
-
 </html>
